@@ -52,7 +52,7 @@ function updateStoryStage() {
   if (!storyTriggers.length) return;
 
   const viewportMid = window.innerHeight * 0.5;
-  const speedFactor = 0.55;
+  const speedFactor = 0.58;
   let activeTrigger = storyTriggers[0];
   let smallestDistance = Number.POSITIVE_INFINITY;
 
@@ -74,7 +74,9 @@ function updateStoryStage() {
 
     const maxOffset = Math.max(0, track.scrollHeight - window.innerHeight);
     const progress = clamp((viewportMid - rect.top) / rect.height, 0, 1);
-    const easedProgress = prefersReducedMotion ? progress : progress * progress * (3 - 2 * progress);
+    const easedProgress = prefersReducedMotion
+      ? progress
+      : progress * progress * progress * (progress * (6 * progress - 15) + 10);
     track.style.transform = `translateY(-${maxOffset * easedProgress * speedFactor}px)`;
   });
 

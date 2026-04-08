@@ -139,9 +139,7 @@ textarea {
 .stage-panel {
   opacity: 0;
   transform: scale(1.05);
-  transition:
-    opacity 1.2s ease,
-    transform 1.8s ease;
+  transition: opacity 1.2s ease;
 }
 
 .stage-panel.is-active {
@@ -240,38 +238,29 @@ textarea {
   color: #e5e7eb;
 }
 
-.story-copy h1,
-.story-copy h2,
-.story-copy h3,
-.story-body,
-.hero-text,
-.service-points p,
-.hero-buttons,
-.story-grid,
-.industry-list,
-.service-points {
+.story-copy > * {
   opacity: 0;
-  transform: translateY(25px);
+  transform: translateY(30px);
 }
 
-.story-copy.is-active h1,
-.story-copy.is-active h2 {
-  animation: fadeUp 1s ease forwards;
+.story-copy.is-active > * {
+  animation: fadeLine 0.8s ease forwards;
 }
 
-.story-copy.is-active h3,
-.story-copy.is-active .story-grid,
-.story-copy.is-active .industry-list,
-.story-copy.is-active .service-points {
-  animation: fadeUp 1s ease 0.3s forwards;
+.story-copy.is-active > *:nth-child(1) {
+  animation-delay: 0.2s;
 }
 
-.story-copy.is-active p {
-  animation: fadeUp 1s ease 0.6s forwards;
+.story-copy.is-active > *:nth-child(2) {
+  animation-delay: 0.5s;
 }
 
-.story-copy.is-active .hero-buttons {
-  animation: fadeUp 1s ease 0.9s forwards;
+.story-copy.is-active > *:nth-child(3) {
+  animation-delay: 0.8s;
+}
+
+.story-copy.is-active > *:nth-child(4) {
+  animation-delay: 1.1s;
 }
 
 .hero-text,
@@ -373,7 +362,7 @@ textarea {
 }
 
 .story-trigger {
-  min-height: 135vh;
+  min-height: 240vh;
 }
 
 .section {
@@ -504,12 +493,7 @@ textarea {
   transform: translateY(0);
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-
+@keyframes fadeLine {
   to {
     opacity: 1;
     transform: translateY(0);
@@ -598,7 +582,7 @@ textarea {
   }
 
   .story-trigger {
-    min-height: 115vh;
+    min-height: 180vh;
   }
 
   .contact-layout,

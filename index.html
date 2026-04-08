@@ -47,61 +47,86 @@
     </header>
 
     <main>
-      <section id="home" class="hero section">
-        <div class="hero-slider" aria-hidden="true">
-          <img src="images/hero1.png" alt="" />
-          <img src="images/hero2.png" alt="" />
-        </div>
-        <div class="hero-overlay"></div>
-        <div class="container hero-content reveal">
-          <h5 class="eyebrow">Electricity | Power Infrastructure Service Provider</h5>
-          <h1>Bliss Enterprises</h1>
-          <h3>Class 1 Electrical Contractor</h3>
-          <p class="hero-text">
-            Trusted electrical contracting company providing EB liaisoning and
-            power infrastructure services across telecom, commercial, and
-            industrial sectors.
-          </p>
-          <div class="hero-buttons">
-            <a class="btn btn-primary" href="#contact">Contact Us</a>
-            <a class="btn btn-secondary" href="#services">Our Services</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" class="section about">
-        <div class="container section-head reveal">
-          <p class="section-tag">About Us</p>
-          <h2>Built for approvals, execution, and dependable power delivery.</h2>
-        </div>
-        <div class="container story-layout" data-story="about">
-          <div class="story-media reveal">
-            <div class="story-media-shell">
-              <figure class="story-visual is-active" data-media="0">
-                <img src="images/about1.png" alt="Electrical infrastructure work by Bliss Enterprises" />
-              </figure>
-              <figure class="story-visual" data-media="1">
-                <img src="images/about2.png" alt="Power infrastructure execution team" />
-              </figure>
-            </div>
-          </div>
-          <div class="story-steps">
-            <article class="story-step reveal is-active" data-story-step="about" data-media-target="0">
-              <p class="section-tag">Trusted Foundation</p>
-              <h3>Bliss Enterprises is a trusted name in EB liaisoning and electrical contracting.</h3>
-              <p>
-                We support projects from the first approval milestone through
-                field execution, helping clients move with better coordination
-                and less delay.
-              </p>
+      <section class="scroll-story">
+        <div class="story-stage">
+          <div class="story-stage-media" aria-hidden="true">
+            <article class="stage-panel is-active" data-panel="home">
+              <div class="stage-track">
+                <img src="images/hero1.png" alt="" />
+                <img src="images/hero2.png" alt="" />
+              </div>
+              <div class="stage-panel-overlay"></div>
             </article>
-            <article class="story-step reveal" data-story-step="about" data-media-target="1">
-              <p class="section-tag">Sector Expertise</p>
-              <h3>We deliver end-to-end power infrastructure support across critical sectors.</h3>
-              <p>
-                Our teams handle electrical board approvals, liaisoning, and
-                execution of electrical works for telecom, commercial, and
-                industrial environments.
+            <article class="stage-panel" data-panel="about">
+              <div class="stage-track">
+                <img src="images/about1.png" alt="" />
+                <img src="images/about2.png" alt="" />
+              </div>
+              <div class="stage-panel-overlay"></div>
+            </article>
+            <article class="stage-panel" data-panel="services">
+              <div class="stage-track">
+                <img src="images/service1.png" alt="" />
+                <img src="images/service2.png" alt="" />
+                <img src="images/service1.png" alt="" />
+              </div>
+              <div class="stage-panel-overlay"></div>
+            </article>
+            <article class="stage-panel" data-panel="why-us">
+              <div class="stage-track">
+                <img src="images/clients3.png" alt="" />
+              </div>
+              <div class="stage-panel-overlay"></div>
+            </article>
+            <article class="stage-panel" data-panel="clients">
+              <div class="stage-track">
+                <img src="images/clients1.png" alt="" />
+                <img src="images/clients2.png" alt="" />
+                <img src="images/clients3.png" alt="" />
+                <img src="images/clients4.png" alt="" />
+              </div>
+              <div class="stage-panel-overlay"></div>
+            </article>
+            <article class="stage-panel" data-panel="team">
+              <div class="stage-track">
+                <img src="images/team1.png" alt="" />
+                <img src="images/team2.png" alt="" />
+                <img src="images/team3.png" alt="" />
+                <img src="images/team4.png" alt="" />
+              </div>
+              <div class="stage-panel-overlay"></div>
+            </article>
+            <article class="stage-panel" data-panel="contact">
+              <div class="stage-track">
+                <img src="images/about2.png" alt="" />
+                <img src="images/team3.png" alt="" />
+              </div>
+              <div class="stage-panel-overlay"></div>
+            </article>
+          </div>
+
+          <div class="container story-stage-copy">
+            <article class="story-copy is-active" data-panel-copy="home">
+              <p class="eyebrow">Electricity | Power Infrastructure Service Provider</p>
+              <h1>Bliss Enterprises</h1>
+              <h3>Class 1 Electrical Contractor</h3>
+              <p class="hero-text">
+                Trusted electrical contracting company providing EB liaisoning and power
+                infrastructure services across telecom, commercial, and industrial sectors.
+              </p>
+              <div class="hero-buttons">
+                <a class="btn btn-primary" href="#contact-form">Contact Us</a>
+                <a class="btn btn-secondary" href="#services">Our Services</a>
+              </div>
+            </article>
+
+            <article class="story-copy" data-panel-copy="about">
+              <p class="eyebrow">About Us</p>
+              <h2>Built for approvals, execution, and dependable power delivery.</h2>
+              <p class="story-body">
+                Bliss Enterprises is a trusted name in EB Liaisoning, Electrical Contracting,
+                and Power Infrastructure Services with end-to-end support across approvals,
+                liaisoning, and execution.
               </p>
               <div class="industry-list">
                 <span>Telecom</span>
@@ -109,165 +134,93 @@
                 <span>Industrial</span>
               </div>
             </article>
-          </div>
-        </div>
-      </section>
 
-      <section id="services" class="section services">
-        <div class="container section-head reveal">
-          <p class="section-tag">Services</p>
-          <h2>Execution support from approvals to on-site commissioning.</h2>
-        </div>
-        <div class="container story-layout services-story" data-story="services">
-          <div class="story-media reveal">
-            <div class="story-media-shell">
-              <figure class="story-visual is-active" data-media="0">
-                <img src="images/service1.png" alt="EB liaisoning support" />
-              </figure>
-              <figure class="story-visual" data-media="1">
-                <img src="images/service2.png" alt="Electrical contracting work" />
-              </figure>
-              <figure class="story-visual" data-media="2">
-                <img src="images/service1.png" alt="Telecom electrical works" />
-              </figure>
-            </div>
-          </div>
-          <div class="story-steps">
-            <article class="story-step service-step reveal is-active" data-story-step="services" data-media-target="0">
-              <div class="service-icon" aria-hidden="true">
-                <span>01</span>
+            <article class="story-copy" data-panel-copy="services">
+              <p class="eyebrow">Services</p>
+              <h2>Execution support from approvals to on-site commissioning.</h2>
+              <div class="service-points">
+                <div>
+                  <strong>EB Liaisoning</strong>
+                  <p>New EB connection applications, load enhancement, tariff change, name transfer, and ESCOM coordination.</p>
+                </div>
+                <div>
+                  <strong>Electrical Contracting</strong>
+                  <p>HT and LT cable laying, transformer installation, and panel board commissioning.</p>
+                </div>
+                <div>
+                  <strong>Telecom Electrical Works</strong>
+                  <p>Telecom power infrastructure, DG installation, civil electrical works, and breakdown maintenance.</p>
+                </div>
               </div>
-              <h3>EB Liaisoning Services</h3>
-              <ul>
-                <li>New EB connection applications</li>
-                <li>Sanction load enhancement</li>
-                <li>Tariff change and name transfer</li>
-                <li>Electrical inspector approvals</li>
-                <li>ESCOM coordination</li>
-              </ul>
             </article>
-            <article class="story-step service-step reveal" data-story-step="services" data-media-target="1">
-              <div class="service-icon" aria-hidden="true">
-                <span>02</span>
+
+            <article class="story-copy" data-panel-copy="why-us">
+              <p class="eyebrow">Why Choose Us</p>
+              <h2>Project discipline, compliance knowledge, and field-ready delivery.</h2>
+              <div class="story-grid">
+                <span>Experienced Team</span>
+                <span>End to End Service</span>
+                <span>KERC &amp; ESCOM Compliance</span>
+                <span>Fast Project Delivery</span>
               </div>
-              <h3>Electrical Contracting</h3>
-              <ul>
-                <li>HT cable laying</li>
-                <li>LT cable laying</li>
-                <li>Transformer installation</li>
-                <li>Panel board commissioning</li>
-              </ul>
             </article>
-            <article class="story-step service-step reveal" data-story-step="services" data-media-target="2">
-              <div class="service-icon" aria-hidden="true">
-                <span>03</span>
+
+            <article class="story-copy" data-panel-copy="clients">
+              <p class="eyebrow">Clients</p>
+              <h2>Trusted by infrastructure and enterprise leaders.</h2>
+              <div class="story-grid">
+                <span>Reliance Jio</span>
+                <span>Reliance Retail</span>
+                <span>Tower Vision India</span>
+                <span>Aircel</span>
+                <span>GTL Infrastructure</span>
+                <span>ATC India</span>
               </div>
-              <h3>Telecom Electrical Works</h3>
-              <ul>
-                <li>Telecom power infrastructure</li>
-                <li>DG installation</li>
-                <li>Civil electrical works</li>
-                <li>Breakdown maintenance</li>
-              </ul>
+            </article>
+
+            <article class="story-copy" data-panel-copy="team">
+              <p class="eyebrow">Team &amp; Expertise</p>
+              <h2>Multi-disciplinary crews ready for utility, telecom, and on-site execution.</h2>
+              <div class="story-grid">
+                <span>Liaisoning Team</span>
+                <span>Civil Teams</span>
+                <span>HDD Drilling Team</span>
+                <span>HT LT Line Team</span>
+                <span>Indoor Electrical Experts</span>
+              </div>
+            </article>
+
+            <article class="story-copy" data-panel-copy="contact">
+              <p class="eyebrow">Contact</p>
+              <h2>Let's plan your next electrical infrastructure project.</h2>
+              <p class="story-body">
+                No.19, 2nd Main road, Seshadripuram, Bangalore 560020<br />
+                9844315864<br />
+                bliss.ebiz@gmail.com
+              </p>
+              <div class="hero-buttons">
+                <a class="btn btn-primary" href="#contact-form">Send Inquiry</a>
+              </div>
             </article>
           </div>
         </div>
-      </section>
 
-      <section id="why-us" class="section why-us">
-        <div class="why-background" aria-hidden="true"></div>
-        <div class="container why-layout">
-          <div class="section-copy reveal">
-            <p class="section-tag">Why Choose Us</p>
-            <h2>Project discipline, compliance knowledge, and field-ready delivery.</h2>
-          </div>
-          <div class="reasons reveal">
-            <div>
-              <strong>Experienced Team</strong>
-              <p>Specialized teams for liaisoning, civil execution, and electrical works.</p>
-            </div>
-            <div>
-              <strong>End to End Service</strong>
-              <p>From documentation and approvals to installation and commissioning.</p>
-            </div>
-            <div>
-              <strong>Compliance First</strong>
-              <p>Work aligned with KERC and ESCOM rules for smoother approvals.</p>
-            </div>
-            <div>
-              <strong>Fast Project Delivery</strong>
-              <p>Coordinated execution that reduces delays across multi-team sites.</p>
-            </div>
-          </div>
+        <div class="story-triggers">
+          <section id="home" class="story-trigger" data-panel-trigger="home"></section>
+          <section id="about" class="story-trigger" data-panel-trigger="about"></section>
+          <section id="services" class="story-trigger" data-panel-trigger="services"></section>
+          <section id="why-us" class="story-trigger" data-panel-trigger="why-us"></section>
+          <section id="clients" class="story-trigger" data-panel-trigger="clients"></section>
+          <section id="team" class="story-trigger" data-panel-trigger="team"></section>
+          <section id="contact" class="story-trigger" data-panel-trigger="contact"></section>
         </div>
       </section>
 
-      <section id="clients" class="section clients">
-        <div class="container">
-          <div class="section-head reveal">
-            <p class="section-tag">Clients</p>
-            <h2>Trusted by infrastructure and enterprise leaders.</h2>
-          </div>
-          <div class="clients-media reveal">
-            <figure class="media-card">
-              <img src="images/clients1.png" alt="Bliss Enterprises client project snapshot" />
-            </figure>
-            <figure class="media-card">
-              <img src="images/clients2.png" alt="Bliss Enterprises client installation detail" />
-            </figure>
-            <figure class="media-card">
-              <img src="images/clients3.png" alt="Electrical infrastructure client site" />
-            </figure>
-            <figure class="media-card">
-              <img src="images/clients4.png" alt="Completed client-facing infrastructure work" />
-            </figure>
-          </div>
-          <div class="logo-grid reveal" aria-label="Client list">
-            <div>Reliance Jio</div>
-            <div>Reliance Retail</div>
-            <div>Tower Vision India</div>
-            <div>Aircel</div>
-            <div>GTL Infrastructure</div>
-            <div>ATC India</div>
-          </div>
-        </div>
-      </section>
-
-      <section id="team" class="section team">
-        <div class="container split-grid team-layout">
-          <div class="team-visual reveal">
-            <figure class="media-card">
-              <img src="images/team1.png" alt="Bliss Enterprises team expertise" />
-            </figure>
-            <figure class="media-card">
-              <img src="images/team2.png" alt="Liaisoning and site coordination team" />
-            </figure>
-            <figure class="media-card">
-              <img src="images/team3.png" alt="Electrical execution team in the field" />
-            </figure>
-            <figure class="media-card">
-              <img src="images/team4.png" alt="Infrastructure support specialists" />
-            </figure>
-          </div>
-          <div class="section-copy reveal">
-            <p class="section-tag">Team &amp; Expertise</p>
-            <h2>Multi-disciplinary crews ready for utility, telecom, and on-site execution.</h2>
-            <ul class="expertise-list">
-              <li>Liaisoning team</li>
-              <li>Civil teams</li>
-              <li>HDD drilling team</li>
-              <li>HT LT line team</li>
-              <li>Indoor electrical experts</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="section contact">
+      <section id="contact-form" class="section contact">
         <div class="container contact-layout">
           <div class="section-copy reveal">
-            <p class="section-tag">Contact</p>
-            <h2>Let’s plan your next electrical infrastructure project.</h2>
+            <p class="section-tag">Contact Form</p>
+            <h2>Send your project details and we'll get back to you.</h2>
             <div class="contact-details">
               <p>
                 <strong>Address</strong><br />
@@ -314,7 +267,7 @@
           <a href="#about">About</a>
           <a href="#services">Services</a>
           <a href="#clients">Clients</a>
-          <a href="#contact">Contact</a>
+          <a href="#contact-form">Contact</a>
         </div>
         <div>
           <h3>Services</h3>

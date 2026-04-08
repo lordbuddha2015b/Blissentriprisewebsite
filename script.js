@@ -1,10 +1,12 @@
 const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
 const navLinks = [...document.querySelectorAll(".site-nav a")];
-const sections = [...document.querySelectorAll("main section[id]")];
 const revealItems = [...document.querySelectorAll(".reveal")];
-const storyLayouts = [...document.querySelectorAll("[data-story]")];
 const contactForm = document.querySelector(".contact-form");
+const storyTriggers = [...document.querySelectorAll("[data-panel-trigger]")];
+const stagePanels = [...document.querySelectorAll("[data-panel]")];
+const storyCopies = [...document.querySelectorAll("[data-panel-copy]")];
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 if (menuToggle && siteNav) {
   menuToggle.addEventListener("click", () => {
@@ -23,26 +25,6 @@ navLinks.forEach((link) => {
   });
 });
 
-const sectionObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute("id");
-
-        navLinks.forEach((link) => {
-          link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
-        });
-      }
-    });
-  },
-  {
-    threshold: 0.45,
-    rootMargin: "-15% 0px -35% 0px",
-  }
-);
-
-sections.forEach((section) => sectionObserver.observe(section));
-
 const revealObserver = new IntersectionObserver(
   (entries, observer) => {
     entries.forEach((entry) => {
@@ -57,42 +39,58 @@ const revealObserver = new IntersectionObserver(
 
 revealItems.forEach((item) => revealObserver.observe(item));
 
-storyLayouts.forEach((layout) => {
-  const storyName = layout.getAttribute("data-story");
-  const steps = [...layout.querySelectorAll(`[data-story-step="${storyName}"]`)];
-  const visuals = [...layout.querySelectorAll(".story-visual")];
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
 
-  const activateStoryStep = (step) => {
-    const target = step.getAttribute("data-media-target");
+function updateStoryStage() {
+  if (!storyTriggers.length) return;
 
-    steps.forEach((item) => item.classList.toggle("is-active", item === step));
-    visuals.forEach((visual) => {
-      visual.classList.toggle("is-active", visual.getAttribute("data-media") === target);
-    });
-  };
+  const viewportMid = window.innerHeight * 0.5;
+  let activeTrigger = storyTriggers[0];
+  let smallestDistance = Number.POSITIVE_INFINITY;
 
-  if (steps[0]) {
-    activateStoryStep(steps[0]);
-  }
+  storyTriggers.forEach((trigger) => {
+    const rect = trigger.getBoundingClientRect();
+    const triggerMid = rect.top + rect.height * 0.5;
+    const distance = Math.abs(triggerMid - viewportMid);
 
-  const storyObserver = new IntersectionObserver(
-    (entries) => {
-      const visibleEntries = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-      if (visibleEntries[0]) {
-        activateStoryStep(visibleEntries[0].target);
-      }
-    },
-    {
-      threshold: [0.35, 0.55, 0.75],
-      rootMargin: "-18% 0px -18% 0px",
+    if (distance < smallestDistance) {
+      smallestDistance = distance;
+      activeTrigger = trigger;
     }
-  );
 
-  steps.forEach((step) => storyObserver.observe(step));
-});
+    const panelName = trigger.getAttribute("data-panel-trigger");
+    const stagePanel = stagePanels.find((panel) => panel.getAttribute("data-panel") === panelName);
+    const track = stagePanel?.querySelector(".stage-track");
+
+    if (!track) return;
+
+    const maxOffset = Math.max(0, track.scrollHeight - window.innerHeight);
+    const progress = clamp((viewportMid - rect.top) / rect.height, 0, 1);
+    const easedProgress = prefersReducedMotion ? progress : progress * progress * (3 - 2 * progress);
+    track.style.transform = `translateY(-${maxOffset * easedProgress}px)`;
+  });
+
+  const activeName = activeTrigger.getAttribute("data-panel-trigger");
+
+  stagePanels.forEach((panel) => {
+    panel.classList.toggle("is-active", panel.getAttribute("data-panel") === activeName);
+  });
+
+  storyCopies.forEach((copy) => {
+    copy.classList.toggle("is-active", copy.getAttribute("data-panel-copy") === activeName);
+  });
+
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+    link.classList.toggle(href === `#${activeName}` || (activeName === "contact" && href === "#contact"));
+  });
+}
+
+updateStoryStage();
+window.addEventListener("scroll", updateStoryStage, { passive: true });
+window.addEventListener("resize", updateStoryStage);
 
 contactForm?.addEventListener("submit", (event) => {
   event.preventDefault();

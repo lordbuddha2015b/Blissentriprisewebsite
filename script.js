@@ -1,4 +1,5 @@
 const menuToggle = document.querySelector(".menu-toggle");
+const siteHeader = document.querySelector(".site-header");
 const siteNav = document.querySelector(".site-nav");
 const navLinks = [...document.querySelectorAll(".site-nav a")];
 const revealItems = [...document.querySelectorAll(".reveal")];
@@ -38,6 +39,10 @@ const revealObserver = new IntersectionObserver(
 );
 
 revealItems.forEach((item) => revealObserver.observe(item));
+
+function updateHeaderState() {
+  siteHeader?.classList.toggle("scrolled", window.scrollY > 16);
+}
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -90,7 +95,9 @@ function updateStoryStage() {
 }
 
 updateStoryStage();
+updateHeaderState();
 window.addEventListener("scroll", updateStoryStage, { passive: true });
+window.addEventListener("scroll", updateHeaderState, { passive: true });
 window.addEventListener("resize", updateStoryStage);
 
 contactForm?.addEventListener("submit", (event) => {

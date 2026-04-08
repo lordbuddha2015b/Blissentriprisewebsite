@@ -165,6 +165,7 @@ textarea {
 
 .hero-slider {
   z-index: 0;
+  background: url('images/hero1.png') center/cover no-repeat;
 }
 
 .hero-slider img {
@@ -184,10 +185,6 @@ textarea {
 
 .hero-slider img:nth-child(2) {
   animation-delay: 4s;
-}
-
-.hero-slider img:nth-child(3) {
-  animation-delay: 8s;
 }
 
 .hero-overlay {
@@ -394,7 +391,7 @@ textarea {
   inset: 0;
   background:
     linear-gradient(110deg, rgba(15, 23, 42, 0.88), rgba(30, 58, 138, 0.7)),
-    url("images/image_8.png") center/cover no-repeat;
+    url('images/clients3.png') center/cover no-repeat;
   transform: scale(1.02);
 }
 
@@ -441,6 +438,17 @@ textarea {
   margin-top: 2rem;
 }
 
+.clients-media {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.clients-media .media-card {
+  min-height: 15rem;
+}
+
 .logo-grid div {
   display: grid;
   place-items: center;
@@ -457,7 +465,13 @@ textarea {
 }
 
 .team-visual .media-card {
-  min-height: 28rem;
+  min-height: 18rem;
+}
+
+.team-visual {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1rem;
 }
 
 .contact-layout {
@@ -565,15 +579,15 @@ textarea {
     opacity: 0;
   }
 
-  8% {
+  12% {
     opacity: 1;
   }
 
-  33% {
+  50% {
     opacity: 1;
   }
 
-  41% {
+  62% {
     opacity: 0;
   }
 
@@ -592,6 +606,11 @@ textarea {
   }
 
   .about-gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .clients-media,
+  .team-visual {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -644,9 +663,11 @@ textarea {
   .about-gallery,
   .services-grid,
   .reasons,
+  .clients-media,
   .logo-grid,
   .contact-layout,
-  .footer-grid {
+  .footer-grid,
+  .team-visual {
     grid-template-columns: 1fr;
   }
 

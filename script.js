@@ -3,6 +3,7 @@ const siteNav = document.querySelector(".site-nav");
 const navLinks = [...document.querySelectorAll(".site-nav a")];
 const sections = [...document.querySelectorAll("main section[id]")];
 const revealItems = [...document.querySelectorAll(".reveal")];
+const storyLayouts = [...document.querySelectorAll("[data-story]")];
 const contactForm = document.querySelector(".contact-form");
 
 if (menuToggle && siteNav) {
@@ -55,6 +56,43 @@ const revealObserver = new IntersectionObserver(
 );
 
 revealItems.forEach((item) => revealObserver.observe(item));
+
+storyLayouts.forEach((layout) => {
+  const storyName = layout.getAttribute("data-story");
+  const steps = [...layout.querySelectorAll(`[data-story-step="${storyName}"]`)];
+  const visuals = [...layout.querySelectorAll(".story-visual")];
+
+  const activateStoryStep = (step) => {
+    const target = step.getAttribute("data-media-target");
+
+    steps.forEach((item) => item.classList.toggle("is-active", item === step));
+    visuals.forEach((visual) => {
+      visual.classList.toggle("is-active", visual.getAttribute("data-media") === target);
+    });
+  };
+
+  if (steps[0]) {
+    activateStoryStep(steps[0]);
+  }
+
+  const storyObserver = new IntersectionObserver(
+    (entries) => {
+      const visibleEntries = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visibleEntries[0]) {
+        activateStoryStep(visibleEntries[0].target);
+      }
+    },
+    {
+      threshold: [0.35, 0.55, 0.75],
+      rootMargin: "-18% 0px -18% 0px",
+    }
+  );
+
+  steps.forEach((step) => storyObserver.observe(step));
+});
 
 contactForm?.addEventListener("submit", (event) => {
   event.preventDefault();

@@ -47,6 +47,7 @@ function updateStoryStage() {
   if (!storyTriggers.length) return;
 
   const viewportMid = window.innerHeight * 0.5;
+  const speedFactor = 0.55;
   let activeTrigger = storyTriggers[0];
   let smallestDistance = Number.POSITIVE_INFINITY;
 
@@ -69,7 +70,7 @@ function updateStoryStage() {
     const maxOffset = Math.max(0, track.scrollHeight - window.innerHeight);
     const progress = clamp((viewportMid - rect.top) / rect.height, 0, 1);
     const easedProgress = prefersReducedMotion ? progress : progress * progress * (3 - 2 * progress);
-    track.style.transform = `translateY(-${maxOffset * easedProgress * 0.65}px)`;
+    track.style.transform = `translateY(-${maxOffset * easedProgress * speedFactor}px)`;
   });
 
   const activeName = activeTrigger.getAttribute("data-panel-trigger");

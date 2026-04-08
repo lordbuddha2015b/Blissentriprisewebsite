@@ -138,16 +138,21 @@ textarea {
 
 .stage-panel {
   opacity: 0;
-  transition: opacity 0.75s ease;
+  transform: scale(1.05);
+  transition:
+    opacity 1.2s ease,
+    transform 1.8s ease;
 }
 
 .stage-panel.is-active {
   opacity: 1;
+  transform: scale(1);
 }
 
 .stage-track {
   height: 100%;
   will-change: transform;
+  transition: transform 0.25s linear;
 }
 
 .stage-track img {
@@ -156,8 +161,8 @@ textarea {
 
 .stage-panel-overlay {
   background:
-    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.55)),
-    radial-gradient(circle at 18% 16%, rgba(59, 130, 246, 0.16), transparent 24%);
+    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.65)),
+    radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.25), transparent 40%);
 }
 
 .story-stage-copy {
@@ -173,11 +178,11 @@ textarea {
   top: 50%;
   left: 0;
   width: min(52rem, 100%);
-  transform: translateY(-50%);
+  transform: translateY(calc(-50% + 40px));
   opacity: 0;
   transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
+    opacity 1s ease,
+    transform 1s ease;
   color: var(--white);
   pointer-events: none;
 }
@@ -200,10 +205,18 @@ textarea {
 }
 
 .story-copy h1,
-.story-copy h2,
+.story-copy h2 {
+  margin: 0;
+  background: linear-gradient(90deg, #ffffff, #e0f2fe, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 3px 18px rgba(0, 0, 0, 0.55);
+}
+
 .story-copy h3 {
   margin: 0;
-  color: var(--white);
+  color: #e5e7eb;
   text-shadow:
     0 2px 6px rgba(0, 0, 0, 0.8),
     0 0 25px rgba(0, 0, 0, 0.45);
@@ -225,6 +238,40 @@ textarea {
   margin-top: 1rem;
   font-size: clamp(1.25rem, 2vw, 2rem);
   color: #e5e7eb;
+}
+
+.story-copy h1,
+.story-copy h2,
+.story-copy h3,
+.story-body,
+.hero-text,
+.service-points p,
+.hero-buttons,
+.story-grid,
+.industry-list,
+.service-points {
+  opacity: 0;
+  transform: translateY(25px);
+}
+
+.story-copy.is-active h1,
+.story-copy.is-active h2 {
+  animation: fadeUp 1s ease forwards;
+}
+
+.story-copy.is-active h3,
+.story-copy.is-active .story-grid,
+.story-copy.is-active .industry-list,
+.story-copy.is-active .service-points {
+  animation: fadeUp 1s ease 0.3s forwards;
+}
+
+.story-copy.is-active p {
+  animation: fadeUp 1s ease 0.6s forwards;
+}
+
+.story-copy.is-active .hero-buttons {
+  animation: fadeUp 1s ease 0.9s forwards;
 }
 
 .hero-text,
@@ -455,6 +502,18 @@ textarea {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 1024px) {

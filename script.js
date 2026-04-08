@@ -69,7 +69,7 @@ function updateStoryStage() {
     const maxOffset = Math.max(0, track.scrollHeight - window.innerHeight);
     const progress = clamp((viewportMid - rect.top) / rect.height, 0, 1);
     const easedProgress = prefersReducedMotion ? progress : progress * progress * (3 - 2 * progress);
-    track.style.transform = `translateY(-${maxOffset * easedProgress}px)`;
+    track.style.transform = `translateY(-${maxOffset * easedProgress * 0.6}px)`;
   });
 
   const activeName = activeTrigger.getAttribute("data-panel-trigger");

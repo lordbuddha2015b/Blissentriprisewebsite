@@ -56,9 +56,9 @@ textarea {
   position: sticky;
   top: 0;
   z-index: 50;
-  backdrop-filter: blur(14px);
-  background: rgba(255, 255, 255, 0.55);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.35);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   transition: background 0.4s ease;
 }
 
@@ -137,7 +137,7 @@ textarea {
 }
 
 .story-stage-media {
-  background: #0b2f2a;
+  background: linear-gradient(180deg, #e8f5f1, #eaf2ff);
   overflow: hidden;
 }
 
@@ -145,12 +145,12 @@ textarea {
   opacity: 0;
   transform: scale(1.02);
   transition:
-    opacity 1.3s ease,
-    transform 1.6s ease;
+    opacity 1.2s ease,
+    transform 1.5s ease;
 }
 
 .stage-panel:not([data-panel="home"]) {
-  background: #0b2f2a;
+  background: linear-gradient(180deg, #e8f5f1, #eaf2ff);
 }
 
 .stage-panel.is-active {
@@ -161,26 +161,37 @@ textarea {
 .stage-track {
   height: 100%;
   will-change: transform;
-  transition: transform 0.25s linear;
+  transition: transform 0.22s linear;
+  gap: 0;
 }
 
 .stage-track img {
-  height: 100%;
-  object-fit: contain;
   width: 100%;
+  height: 100vh;
+  object-fit: contain;
   background: linear-gradient(180deg, #e6f4f1, #eaf4ff);
-  padding: 4vh 0;
+  padding: 6vh 0;
+  display: block;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 [data-panel="home"] img {
   object-fit: cover;
+  height: 100vh;
   padding: 0;
   background: transparent;
 }
 
-[data-panel="about"] img {
+[data-panel="about"] .stage-track img {
   object-fit: contain;
-  padding: 5vh 0;
+  padding: 7vh 0;
+}
+
+[data-panel="why-us"] img {
+  object-fit: contain;
+  padding: 6vh 0;
 }
 
 [data-panel="team"] img {
@@ -189,7 +200,7 @@ textarea {
 }
 
 .stage-panel-overlay {
-  background: linear-gradient(rgba(11, 47, 42, 0.35), rgba(11, 47, 42, 0.65));
+  background: linear-gradient(rgba(232, 245, 241, 0.35), rgba(234, 242, 255, 0.35));
 }
 
 .story-stage-copy {
@@ -203,9 +214,10 @@ textarea {
 .story-copy {
   position: absolute;
   inset: 0 auto 0 0;
-  width: min(60rem, 100%);
+  width: min(68rem, 100%);
   display: grid;
   align-content: center;
+  align-items: center;
   transform: translateY(40px);
   opacity: 0;
   transition:
@@ -434,8 +446,8 @@ textarea {
   position: relative;
   z-index: 5;
   background: transparent;
-  margin-top: -30vh;
-  padding-top: 35vh;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .contact-layout {
@@ -456,10 +468,10 @@ textarea {
   gap: 1rem;
   padding: 2rem;
   backdrop-filter: blur(14px);
-  background: linear-gradient(rgba(230, 244, 241, 0.85), rgba(234, 244, 255, 0.85));
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: transparent;
+  border: none;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: none;
 }
 
 .contact-form label {

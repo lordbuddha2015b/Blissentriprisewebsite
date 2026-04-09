@@ -190,8 +190,21 @@ textarea {
 }
 
 [data-panel="why-us"] img {
-  object-fit: contain;
-  padding: 6vh 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  padding: 0;
+}
+
+[data-panel="why-us"] {
+  background: linear-gradient(180deg, #e8f5f1, #eaf2ff);
+}
+
+[data-panel="contact"] .stage-track img {
+  width: 100%;
+  height: 110vh;
+  object-fit: cover;
+  padding: 0;
 }
 
 [data-panel="team"] img {
@@ -214,7 +227,7 @@ textarea {
 .story-copy {
   position: absolute;
   inset: 0 auto 0 0;
-  width: min(68rem, 100%);
+  width: min(70rem, 100%);
   display: grid;
   align-content: center;
   align-items: center;
@@ -248,30 +261,25 @@ textarea {
 }
 
 .story-copy h1,
-.story-copy h2 {
-  margin: 0;
-  background: linear-gradient(90deg, #ffffff, #e0f2fe, #ffffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow:
-    0 4px 18px rgba(0, 0, 0, 0.35);
-}
-
+.story-copy h2,
 .story-copy h3 {
   margin: 0;
-  color: #e5e7eb;
+  color: white;
   text-shadow:
     0 2px 6px rgba(0, 0, 0, 0.8),
-    0 0 25px rgba(0, 0, 0, 0.45);
+    0 4px 18px rgba(0, 0, 0, 0.6),
+    0 0 1px rgba(0, 0, 0, 0.9);
 }
 
 .story-copy h1 {
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.35);
   font-size: clamp(4rem, 9vw, 7.5rem);
   line-height: 0.94;
   letter-spacing: -0.06em;
 }
 
 .story-copy h2 {
+  -webkit-text-stroke: 0.6px rgba(0, 0, 0, 0.25);
   font-size: clamp(3rem, 6vw, 5.2rem);
   line-height: 0.98;
   letter-spacing: -0.05em;
@@ -316,9 +324,7 @@ textarea {
   font-size: clamp(1rem, 1.4vw, 1.2rem);
   line-height: 1.7;
   color: #e5e7eb;
-  text-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.78),
-    0 0 18px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .story-body {
@@ -444,10 +450,10 @@ textarea {
 
 .contact {
   position: relative;
-  z-index: 5;
+  z-index: 3;
   background: transparent;
-  margin-top: 0;
-  padding-top: 0;
+  margin-top: -60vh;
+  padding-top: 60vh;
 }
 
 .contact-layout {
@@ -467,9 +473,9 @@ textarea {
   display: grid;
   gap: 1rem;
   padding: 2rem;
-  backdrop-filter: blur(14px);
-  background: transparent;
-  border: none;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius);
   box-shadow: none;
 }

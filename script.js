@@ -41,7 +41,17 @@ const revealObserver = new IntersectionObserver(
 revealItems.forEach((item) => revealObserver.observe(item));
 
 function updateHeaderState() {
-  siteHeader?.classList.toggle("scrolled", window.scrollY > 16);
+  if (!siteHeader) return;
+
+  if (window.scrollY > 60) {
+    siteHeader.classList.add("scrolled");
+    siteHeader.style.background = "rgba(255,255,255,0.65)";
+    siteHeader.style.boxShadow = "0 4px 18px rgba(0,0,0,0.08)";
+  } else {
+    siteHeader.classList.remove("scrolled");
+    siteHeader.style.background = "rgba(255,255,255,0.35)";
+    siteHeader.style.boxShadow = "none";
+  }
 }
 
 function clamp(value, min, max) {

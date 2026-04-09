@@ -431,10 +431,23 @@ textarea {
   transform: translateY(-2px);
 }
 
+.btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
 .btn-primary {
   background: var(--secondary);
   color: var(--white);
   box-shadow: 0 10px 25px rgba(59, 130, 246, 0.35);
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+}
+
+.btn-primary:active {
+  background: #1d4ed8;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.28);
 }
 
 .btn-secondary {
@@ -444,7 +457,14 @@ textarea {
 }
 
 .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.16);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22), 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:active {
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22);
 }
 
 .industry-list,

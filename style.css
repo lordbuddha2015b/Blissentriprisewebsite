@@ -85,24 +85,27 @@ textarea {
 }
 
 .logo {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.95rem;
+  gap: 10px;
   flex-shrink: 0;
 }
 
 .logo img {
-  height: 40px;
+  height: 38px;
   width: auto;
   object-fit: contain;
   transition: all 0.3s ease;
   display: block;
 }
 
-.brand-name {
+.logo-text {
   display: inline-block;
   white-space: nowrap;
   line-height: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #1e3a8a;
 }
 
 .logo img:hover {
@@ -658,7 +661,7 @@ textarea {
 
 @media (max-width: 1024px) {
   .logo img {
-    height: 40px;
+    height: 38px;
   }
 
   .story-copy {

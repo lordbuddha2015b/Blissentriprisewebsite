@@ -93,9 +93,9 @@ textarea {
 }
 
 .logo img {
-  height: 54px;
+  height: 42px;
   width: auto;
-  max-width: 72px;
+  max-width: 49px;
   object-fit: contain;
   transition: all 0.3s ease;
   display: block;
@@ -625,9 +625,9 @@ textarea {
 }
 
 .footer-logo img {
-  height: 48px;
+  height: 40px;
   width: auto;
-  max-width: 64px;
+  max-width: 47px;
   opacity: 0.9;
 }
 
@@ -652,9 +652,9 @@ textarea {
 
 @media (max-width: 1024px) {
   .logo img {
-    height: 46px;
+    height: 42px;
     width: auto;
-    max-width: 62px;
+    max-width: 49px;
   }
 
   .story-copy {
@@ -678,9 +678,9 @@ textarea {
   }
 
   .logo img {
-    height: 40px;
+    height: 34px;
     width: auto;
-    max-width: 52px;
+    max-width: 40px;
   }
 
   .menu-toggle {
@@ -777,8 +777,8 @@ textarea {
 
 @media (min-width: 1200px) {
   .logo img {
-    height: 60px;
+    height: 48px;
     width: auto;
-    max-width: 78px;
+    max-width: 56px;
   }
 }

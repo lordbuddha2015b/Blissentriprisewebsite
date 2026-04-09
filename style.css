@@ -703,7 +703,15 @@ textarea {
   }
 
   .site-header {
-    padding: 0.7rem 1.2rem;
+    padding: 0.55rem 0.8rem;
+  }
+
+  .site-header .container {
+    width: calc(100% - 0.5rem);
+  }
+
+  .nav-wrap {
+    gap: 0.5rem;
   }
 
   .logo img {
@@ -723,8 +731,8 @@ textarea {
   .site-nav {
     position: absolute;
     top: calc(100% + 0.5rem);
-    right: 1rem;
-    left: 1rem;
+    right: 0.5rem;
+    left: 0.5rem;
     display: grid;
     gap: 0.65rem;
     padding: 0.75rem;
@@ -751,6 +759,7 @@ textarea {
     top: auto;
     height: auto;
     min-height: calc(100svh - var(--header-height));
+    overflow: visible;
   }
 
   .story-stage-media {
@@ -761,37 +770,106 @@ textarea {
 
   .story-stage-copy {
     min-height: calc(100svh - var(--header-height));
-    padding: 2rem 0;
+    padding: 1rem 0 2rem;
+    align-items: start;
   }
 
   .story-copy {
     width: 100%;
+    padding: 1.25rem 0.25rem 1.5rem;
+    align-content: start;
+    min-height: calc(100svh - var(--header-height));
   }
 
   .story-copy h1 {
-    font-size: clamp(2.2rem, 8vw, 3rem);
+    font-size: clamp(2.35rem, 10vw, 3.25rem);
+    line-height: 1;
   }
 
   .story-copy h2 {
-    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    font-size: clamp(1.85rem, 7vw, 2.6rem);
+    line-height: 1.06;
   }
 
-  .story-body {
-    font-size: 1rem;
-    padding: 0 1.2rem;
+  .story-copy h3 {
+    font-size: 1.15rem;
+  }
+
+  .story-eyebrow {
+    max-width: calc(100% - 1rem);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.22em;
+  }
+
+  .hero-text,
+  .story-body,
+  .service-points p {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    max-width: calc(100% - 1.5rem);
+    padding: 0;
   }
 
   .story-trigger {
-    min-height: 180vh;
+    min-height: 145vh;
   }
 
   #home.story-trigger {
-    min-height: 60vh;
+    min-height: 92vh;
   }
 
   .stage-track img {
+    object-fit: cover;
+    padding: 0;
+  }
+
+  [data-panel="about"] .stage-track img,
+  [data-panel="services"] .stage-track img,
+  [data-panel="clients"] .stage-track img,
+  [data-panel="team"] .stage-track img,
+  [data-panel="contact"] .stage-track img {
     object-fit: contain;
-    padding: 3vh 0;
+    padding: 5vh 0 2vh;
+  }
+
+  [data-panel="why-us"] img,
+  [data-panel="home"] img {
+    object-fit: cover;
+    padding: 0;
+  }
+
+  .hero-buttons {
+    width: 100%;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+
+  .hero-buttons .btn {
+    min-width: 142px;
+  }
+
+  .industry-list,
+  .story-grid {
+    gap: 0.65rem;
+    margin-top: 1.2rem;
+  }
+
+  .industry-list span,
+  .story-grid span {
+    padding: 0.72rem 0.85rem;
+    font-size: 0.92rem;
+  }
+
+  .service-points {
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+  }
+
+  .service-points div {
+    padding: 0.95rem 1rem;
   }
 
   .contact-layout,
@@ -800,11 +878,66 @@ textarea {
   }
 
   .contact-layout {
-    padding-top: 6rem;
+    padding-top: 4rem;
+    gap: 1.5rem;
   }
 
   .contact-form {
     padding: 1.35rem;
+  }
+
+  .contact {
+    margin-top: -25vh;
+    padding-top: 25vh;
+  }
+
+  .footer-grid {
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --header-height: 72px;
+  }
+
+  .logo-text {
+    font-size: 0.92rem;
+  }
+
+  .story-copy {
+    padding-top: 1rem;
+  }
+
+  .story-copy h1 {
+    font-size: clamp(2.05rem, 11vw, 2.8rem);
+  }
+
+  .story-copy h2 {
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+  }
+
+  .story-copy h3 {
+    font-size: 1.02rem;
+    margin-top: 0.75rem;
+  }
+
+  .hero-text,
+  .story-body,
+  .service-points p {
+    font-size: 0.92rem;
+  }
+
+  .story-trigger {
+    min-height: 132vh;
+  }
+
+  #home.story-trigger {
+    min-height: 88vh;
+  }
+
+  .hero-buttons .btn {
+    width: min(100%, 170px);
   }
 }
 

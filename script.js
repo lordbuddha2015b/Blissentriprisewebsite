@@ -58,6 +58,30 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
+function updateCopyLines(activeName, progress) {
+  const thresholds = [0.1, 0.24, 0.38, 0.52, 0.66, 0.8];
+  const span = 0.2;
+
+  storyCopies.forEach((copy) => {
+    const isActive = copy.getAttribute("data-panel-copy") === activeName;
+    const children = [...copy.children];
+
+    children.forEach((child, index) => {
+      if (!isActive) {
+        child.style.opacity = "0";
+        child.style.transform = "translateY(20px)";
+        return;
+      }
+
+      const start = thresholds[index] ?? thresholds[thresholds.length - 1];
+      const localProgress = prefersReducedMotion ? 1 : clamp((progress - start) / span, 0, 1);
+
+      child.style.opacity = String(localProgress);
+      child.style.transform = `translateY(${20 - localProgress * 20}px)`;
+    });
+  });
+}
+
 function updateStoryStage() {
   if (!storyTriggers.length) return;
 
@@ -65,6 +89,7 @@ function updateStoryStage() {
   const speedFactor = 0.58;
   let activeTrigger = storyTriggers[0];
   let smallestDistance = Number.POSITIVE_INFINITY;
+  let activeProgress = 0;
 
   storyTriggers.forEach((trigger) => {
     const rect = trigger.getBoundingClientRect();
@@ -74,6 +99,7 @@ function updateStoryStage() {
     if (distance < smallestDistance) {
       smallestDistance = distance;
       activeTrigger = trigger;
+      activeProgress = clamp((viewportMid - rect.top) / rect.height, 0, 1);
     }
 
     const panelName = trigger.getAttribute("data-panel-trigger");
@@ -88,6 +114,7 @@ function updateStoryStage() {
       ? progress
       : progress * progress * progress * (progress * (6 * progress - 15) + 10);
     track.style.transform = `translateY(-${maxOffset * easedProgress * speedFactor}px)`;
+    track.style.setProperty("--image-zoom", `${1 + easedProgress * 0.08}`);
   });
 
   const activeName = activeTrigger.getAttribute("data-panel-trigger");
@@ -99,6 +126,8 @@ function updateStoryStage() {
   storyCopies.forEach((copy) => {
     copy.classList.toggle("is-active", copy.getAttribute("data-panel-copy") === activeName);
   });
+
+  updateCopyLines(activeName, activeProgress);
 
   navLinks.forEach((link) => {
     const href = link.getAttribute("href");

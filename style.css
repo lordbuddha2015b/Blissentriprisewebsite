@@ -224,6 +224,12 @@ textarea {
   border: none;
   outline: none;
   box-shadow: none;
+  transform: scale(var(--image-zoom, 1));
+  transform-origin: center center;
+  transition:
+    transform 0.22s linear,
+    object-fit 0.22s linear,
+    padding 0.22s linear;
 }
 
 [data-panel="home"] img {
@@ -366,26 +372,9 @@ textarea {
 .story-copy > * {
   opacity: 0;
   transform: translateY(20px);
-}
-
-.story-copy.is-active > * {
-  animation: fadeLine 0.7s ease forwards;
-}
-
-.story-copy.is-active > *:nth-child(1) {
-  animation-delay: 0.2s;
-}
-
-.story-copy.is-active > *:nth-child(2) {
-  animation-delay: 0.45s;
-}
-
-.story-copy.is-active > *:nth-child(3) {
-  animation-delay: 0.7s;
-}
-
-.story-copy.is-active > *:nth-child(4) {
-  animation-delay: 0.95s;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 
 .hero-text,
@@ -650,13 +639,6 @@ textarea {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-@keyframes fadeLine {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @media (max-width: 1024px) {

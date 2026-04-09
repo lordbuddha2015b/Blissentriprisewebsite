@@ -18,7 +18,28 @@ if (menuToggle && siteNav) {
 }
 
 navLinks.forEach((link) => {
-  link.addEventListener("click", () => {
+  link.addEventListener("click", (event) => {
+    const href = link.getAttribute("href");
+    const targetId = href?.replace("#", "");
+    const target = targetId ? document.getElementById(targetId) : null;
+
+    if (target && target.classList.contains("story-trigger")) {
+      event.preventDefault();
+
+      const headerOffset = siteHeader?.offsetHeight ?? 0;
+      const triggerProgress = targetId === "home" ? 0 : 0.72;
+      const targetY =
+        target.getBoundingClientRect().top +
+        window.scrollY +
+        target.offsetHeight * triggerProgress -
+        headerOffset;
+
+      window.scrollTo({
+        top: targetY,
+        behavior: "smooth",
+      });
+    }
+
     if (siteNav?.classList.contains("is-open")) {
       siteNav.classList.remove("is-open");
       menuToggle?.setAttribute("aria-expanded", "false");

@@ -49,7 +49,7 @@ function updateHeaderState() {
     siteHeader.style.boxShadow = "0 4px 18px rgba(0,0,0,0.08)";
   } else {
     siteHeader.classList.remove("scrolled");
-    siteHeader.style.background = "rgba(255,255,255,0.35)";
+    siteHeader.style.background = "rgba(255,255,255,0.5)";
     siteHeader.style.boxShadow = "none";
   }
 }

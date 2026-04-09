@@ -2,6 +2,7 @@ const menuToggle = document.querySelector(".menu-toggle");
 const siteHeader = document.querySelector(".site-header");
 const siteNav = document.querySelector(".site-nav");
 const navLinks = [...document.querySelectorAll(".site-nav a")];
+const externalActionLinks = [...document.querySelectorAll("[data-external-link='true']")];
 const revealItems = [...document.querySelectorAll(".reveal")];
 const contactForm = document.querySelector(".contact-form");
 const storyTriggers = [...document.querySelectorAll("[data-panel-trigger]")];
@@ -44,6 +45,19 @@ navLinks.forEach((link) => {
       siteNav.classList.remove("is-open");
       menuToggle?.setAttribute("aria-expanded", "false");
     }
+  });
+});
+
+externalActionLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const href = link.getAttribute("href");
+    if (!href) return;
+
+    event.preventDefault();
+    link.classList.add("is-pressed");
+    window.setTimeout(() => {
+      window.location.href = href;
+    }, 110);
   });
 });
 

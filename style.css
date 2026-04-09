@@ -52,6 +52,10 @@ textarea {
   margin: 0 auto;
 }
 
+.site-header .container {
+  width: min(100% - 1rem, 1440px);
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -74,7 +78,7 @@ textarea {
   min-height: var(--header-height);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1rem;
 }
 
@@ -122,6 +126,7 @@ textarea {
   display: flex;
   align-items: center;
   gap: 1.2rem;
+  margin-left: auto;
 }
 
 .site-nav a {
@@ -432,6 +437,10 @@ textarea {
 }
 
 .btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn.is-pressed {
   transform: translateY(1px) scale(0.98);
 }
 

@@ -252,7 +252,7 @@ textarea {
   height: 100vh;
   object-fit: cover;
   padding: 0;
-  object-position: 28% center;
+  object-position: center center;
 }
 
 [data-panel="why-us"] {

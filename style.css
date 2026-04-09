@@ -154,6 +154,31 @@ textarea {
   box-shadow: 0 12px 28px rgba(59, 130, 246, 0.18);
 }
 
+.site-nav .nav-action {
+  color: var(--white);
+  border-color: transparent;
+}
+
+.site-nav .nav-action-primary {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+}
+
+.site-nav .nav-action-primary:hover {
+  color: var(--white);
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+.site-nav .nav-action-secondary {
+  background: linear-gradient(135deg, #64748b, #475569);
+  box-shadow: 0 12px 28px rgba(71, 85, 105, 0.24);
+}
+
+.site-nav .nav-action-secondary:hover {
+  color: var(--white);
+  background: linear-gradient(135deg, #475569, #334155);
+}
+
 .menu-toggle {
   display: none;
   width: 3rem;

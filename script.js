@@ -2,78 +2,34 @@ const menuToggle = document.querySelector(".menu-toggle");
 const siteHeader = document.querySelector(".site-header");
 const siteNav = document.querySelector(".site-nav");
 const navLinks = [...document.querySelectorAll(".site-nav a")];
-const externalActionLinks = [...document.querySelectorAll("[data-external-link='true']")];
 const revealItems = [...document.querySelectorAll(".reveal")];
 const contactForm = document.querySelector(".contact-form");
 const storyTriggers = [...document.querySelectorAll("[data-panel-trigger]")];
 const stagePanels = [...document.querySelectorAll("[data-panel]")];
 const storyCopies = [...document.querySelectorAll("[data-panel-copy]")];
+const storyStageCopy = document.querySelector(".story-stage-copy");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-if (menuToggle && siteNav) {
-  menuToggle.addEventListener("click", () => {
-    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
-    menuToggle.setAttribute("aria-expanded", String(!isExpanded));
-    siteNav.classList.toggle("is-open", !isExpanded);
-  });
+let currentDeviceType = null;
+let desktopEffectsAttached = false;
+
+function detectDeviceType() {
+  // Treat narrow touch-first screens as mobile so we can swap to stacked content.
+  const isNarrowViewport = window.matchMedia("(max-width: 768px)").matches;
+  const hasTouchCapability =
+    navigator.maxTouchPoints > 0 ||
+    window.matchMedia("(pointer: coarse)").matches ||
+    "ontouchstart" in window;
+
+  return isNarrowViewport || (hasTouchCapability && window.innerWidth <= 768)
+    ? "mobile"
+    : "desktop";
 }
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", (event) => {
-    const href = link.getAttribute("href");
-    const targetId = href?.replace("#", "");
-    const target = targetId ? document.getElementById(targetId) : null;
-
-    if (target && target.classList.contains("story-trigger")) {
-      event.preventDefault();
-
-      const headerOffset = siteHeader?.offsetHeight ?? 0;
-      const triggerProgress = targetId === "home" ? 0 : 0.72;
-      const targetY =
-        target.getBoundingClientRect().top +
-        window.scrollY +
-        target.offsetHeight * triggerProgress -
-        headerOffset;
-
-      window.scrollTo({
-        top: targetY,
-        behavior: "smooth",
-      });
-    }
-
-    if (siteNav?.classList.contains("is-open")) {
-      siteNav.classList.remove("is-open");
-      menuToggle?.setAttribute("aria-expanded", "false");
-    }
-  });
-});
-
-externalActionLinks.forEach((link) => {
-  link.addEventListener("click", (event) => {
-    const href = link.getAttribute("href");
-    if (!href) return;
-
-    event.preventDefault();
-    link.classList.add("is-pressed");
-    window.setTimeout(() => {
-      window.location.href = href;
-    }, 110);
-  });
-});
-
-const revealObserver = new IntersectionObserver(
-  (entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.2 }
-);
-
-revealItems.forEach((item) => revealObserver.observe(item));
+function setDeviceModeClass(deviceType) {
+  document.body.classList.toggle("mobile-mode", deviceType === "mobile");
+  document.body.classList.toggle("desktop-mode", deviceType === "desktop");
+}
 
 function updateHeaderState() {
   if (!siteHeader) return;
@@ -93,9 +49,59 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
+function resetCopyChildren(copy) {
+  [...copy.children].forEach((child) => {
+    child.style.opacity = "";
+    child.style.transform = "";
+  });
+}
+
+function moveCopiesIntoPanels() {
+  storyCopies.forEach((copy) => {
+    const panelName = copy.getAttribute("data-panel-copy");
+    const targetPanel = stagePanels.find((panel) => panel.getAttribute("data-panel") === panelName);
+
+    if (!targetPanel || copy.parentElement === targetPanel) return;
+
+    targetPanel.appendChild(copy);
+  });
+}
+
+function restoreCopiesToDesktopContainer() {
+  if (!storyStageCopy) return;
+
+  storyCopies.forEach((copy) => {
+    if (copy.parentElement !== storyStageCopy) {
+      storyStageCopy.appendChild(copy);
+    }
+  });
+}
+
+function resetStageForMobile() {
+  stagePanels.forEach((panel) => {
+    panel.classList.add("is-active");
+  });
+
+  storyCopies.forEach((copy) => {
+    copy.classList.add("is-active");
+    resetCopyChildren(copy);
+  });
+
+  stagePanels.forEach((panel) => {
+    const track = panel.querySelector(".stage-track");
+    if (!track) return;
+
+    track.style.transform = "none";
+    track.style.setProperty("--image-zoom", "1");
+  });
+}
+
 function updateCopyLines(activeName, progress) {
-  const thresholds = [0.1, 0.24, 0.38, 0.52, 0.66, 0.8];
-  const span = 0.2;
+  const thresholdMap = {
+    about: [0.04, 0.1, 0.16, 0.22],
+  };
+  const thresholds = thresholdMap[activeName] ?? [0.1, 0.24, 0.38, 0.52, 0.66, 0.8];
+  const span = activeName === "about" ? 0.14 : 0.2;
 
   storyCopies.forEach((copy) => {
     const isActive = copy.getAttribute("data-panel-copy") === activeName;
@@ -118,7 +124,7 @@ function updateCopyLines(activeName, progress) {
 }
 
 function updateStoryStage() {
-  if (!storyTriggers.length) return;
+  if (currentDeviceType !== "desktop" || !storyTriggers.length) return;
 
   const viewportMid = window.innerHeight * 0.5;
   const speedFactor = 0.58;
@@ -148,7 +154,10 @@ function updateStoryStage() {
     const easedProgress = prefersReducedMotion
       ? progress
       : progress * progress * progress * (progress * (6 * progress - 15) + 10);
-    track.style.transform = `translateY(-${maxOffset * easedProgress * speedFactor}px)`;
+    const imageProgress =
+      panelName === "about" ? clamp((progress - 0.34) / 0.66, 0, 1) : easedProgress;
+
+    track.style.transform = `translateY(-${maxOffset * imageProgress * speedFactor}px)`;
     track.style.setProperty("--image-zoom", `${1 + easedProgress * 0.08}`);
   });
 
@@ -166,15 +175,128 @@ function updateStoryStage() {
 
   navLinks.forEach((link) => {
     const href = link.getAttribute("href");
-    link.classList.toggle(href === `#${activeName}` || (activeName === "contact" && href === "#contact"));
+    link.classList.toggle(
+      href === `#${activeName}` || (activeName === "contact" && href === "#contact")
+    );
   });
 }
 
-updateStoryStage();
-updateHeaderState();
-window.addEventListener("scroll", updateStoryStage, { passive: true });
+function attachDesktopEffects() {
+  if (desktopEffectsAttached) return;
+
+  window.addEventListener("scroll", updateStoryStage, { passive: true });
+  window.addEventListener("resize", updateStoryStage);
+  desktopEffectsAttached = true;
+}
+
+function detachDesktopEffects() {
+  if (!desktopEffectsAttached) return;
+
+  window.removeEventListener("scroll", updateStoryStage);
+  window.removeEventListener("resize", updateStoryStage);
+  desktopEffectsAttached = false;
+}
+
+function applyDeviceMode() {
+  // Switch layouts live when the viewport crosses between mobile and desktop rules.
+  const nextDeviceType = detectDeviceType();
+
+  if (nextDeviceType === currentDeviceType) {
+    if (nextDeviceType === "mobile") {
+      resetStageForMobile();
+    } else {
+      updateStoryStage();
+    }
+    return;
+  }
+
+  currentDeviceType = nextDeviceType;
+  setDeviceModeClass(currentDeviceType);
+
+  if (currentDeviceType === "mobile") {
+    detachDesktopEffects();
+    moveCopiesIntoPanels();
+    resetStageForMobile();
+  } else {
+    restoreCopiesToDesktopContainer();
+    attachDesktopEffects();
+    updateStoryStage();
+  }
+}
+
+if (menuToggle && siteNav) {
+  menuToggle.addEventListener("click", () => {
+    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+    menuToggle.setAttribute("aria-expanded", String(!isExpanded));
+    siteNav.classList.toggle("is-open", !isExpanded);
+  });
+}
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const href = link.getAttribute("href");
+    const targetId = href?.replace("#", "");
+    const target = targetId ? document.getElementById(targetId) : null;
+
+    if (targetId && currentDeviceType === "mobile") {
+      const mobilePanel = stagePanels.find((panel) => panel.getAttribute("data-panel") === targetId);
+
+      if (mobilePanel) {
+        event.preventDefault();
+        mobilePanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else if (target && target.classList.contains("story-trigger")) {
+      event.preventDefault();
+
+      const headerOffset = siteHeader?.offsetHeight ?? 0;
+      const triggerProgressMap = {
+        home: 0,
+        about: 0.3,
+        services: 0.72,
+        "why-us": 0.64,
+        clients: 0.38,
+        team: 0.68,
+        contact: 0.62,
+      };
+      const triggerProgress = triggerProgressMap[targetId] ?? 0.72;
+      const targetY =
+        target.getBoundingClientRect().top +
+        window.scrollY +
+        target.offsetHeight * triggerProgress -
+        headerOffset;
+
+      window.scrollTo({
+        top: targetY,
+        behavior: "smooth",
+      });
+    }
+
+    if (siteNav?.classList.contains("is-open")) {
+      siteNav.classList.remove("is-open");
+      menuToggle?.setAttribute("aria-expanded", "false");
+    }
+  });
+});
+
+const revealObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.2 }
+);
+
+revealItems.forEach((item) => revealObserver.observe(item));
+
 window.addEventListener("scroll", updateHeaderState, { passive: true });
-window.addEventListener("resize", updateStoryStage);
+window.addEventListener("resize", applyDeviceMode);
+
+updateHeaderState();
+applyDeviceMode();
 
 contactForm?.addEventListener("submit", (event) => {
   event.preventDefault();

@@ -1096,21 +1096,27 @@ body.mobile-mode .story-copy h1,
 body.mobile-mode .story-copy h2,
 body.mobile-mode .story-copy h3 {
   color: var(--text);
-  text-shadow: none;
+  text-shadow: none !important;
   -webkit-text-stroke: 0;
+  letter-spacing: -0.03em;
 }
 
 body.mobile-mode .hero-text,
 body.mobile-mode .story-body,
 body.mobile-mode .service-points p {
   color: var(--muted);
-  text-shadow: none;
+  text-shadow: none !important;
   max-width: none;
 }
 
 body.mobile-mode .story-eyebrow {
   max-width: 100%;
   margin-bottom: 0.85rem;
+  color: var(--primary);
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.22);
+  text-shadow: none !important;
+  box-shadow: none;
 }
 
 body.mobile-mode .service-points div {
@@ -1131,6 +1137,33 @@ body.mobile-mode .story-grid span {
   color: var(--primary);
   text-shadow: none;
   box-shadow: none;
+}
+
+body.mobile-mode .story-copy h1 {
+  font-size: clamp(2.2rem, 7vw, 2.8rem);
+  line-height: 1.06;
+}
+
+body.mobile-mode .story-copy h2 {
+  font-size: clamp(1.85rem, 6vw, 2.35rem);
+  line-height: 1.14;
+}
+
+body.mobile-mode .story-copy h3 {
+  font-size: clamp(1.15rem, 4vw, 1.35rem);
+  line-height: 1.25;
+}
+
+body.mobile-mode .hero-text,
+body.mobile-mode .story-body {
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+body.mobile-mode [data-panel="clients"] .stage-track img {
+  object-fit: contain;
+  background: #ffffff;
+  padding: 0;
 }
 
 body.mobile-mode .contact {

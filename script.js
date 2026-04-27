@@ -8,7 +8,10 @@ const storyTriggers = [...document.querySelectorAll("[data-panel-trigger]")];
 const stagePanels = [...document.querySelectorAll("[data-panel]")];
 const storyCopies = [...document.querySelectorAll("[data-panel-copy]")];
 const storyStageCopy = document.querySelector(".story-stage-copy");
+const clientsPanelTrack = document.querySelector('[data-panel="clients"] .stage-track');
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mobileClientsImageSrc = "images/client image.png";
+const originalClientsMarkup = clientsPanelTrack?.innerHTML ?? "";
 
 let currentDeviceType = null;
 let desktopEffectsAttached = false;
@@ -94,6 +97,18 @@ function resetStageForMobile() {
     track.style.transform = "none";
     track.style.setProperty("--image-zoom", "1");
   });
+}
+
+function applyMobileClientImage() {
+  if (!clientsPanelTrack) return;
+
+  clientsPanelTrack.innerHTML = `<img src="${mobileClientsImageSrc}" alt="Bliss Enterprises client partners" />`;
+}
+
+function restoreDesktopClientImages() {
+  if (!clientsPanelTrack || !originalClientsMarkup) return;
+
+  clientsPanelTrack.innerHTML = originalClientsMarkup;
 }
 
 function updateCopyLines(activeName, progress) {
@@ -215,9 +230,11 @@ function applyDeviceMode() {
 
   if (currentDeviceType === "mobile") {
     detachDesktopEffects();
+    applyMobileClientImage();
     moveCopiesIntoPanels();
     resetStageForMobile();
   } else {
+    restoreDesktopClientImages();
     restoreCopiesToDesktopContainer();
     attachDesktopEffects();
     updateStoryStage();
